@@ -7,3 +7,5 @@ title: Hello Gatsby
 This is the second blog post in my awesome Gatsby+Netlify blog.
 
 This is an inline image:
+
+![](/assets/gatsby-logo.jpeg)
