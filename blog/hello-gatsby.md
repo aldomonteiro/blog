@@ -5,3 +5,9 @@ cover: /assets/dia_das_maes_shopping_curitiba.jpg
 title: Hello Gatsby
 ---
 This is the second blog post in my awesome Gatsby+Netlify blog.
+
+
+
+This is an inline image:
+
+![](/assets/dia_das_maes_shopping_curitiba.jpg)
