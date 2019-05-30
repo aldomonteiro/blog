@@ -1,4 +1,7 @@
-const path = require("path")
+const path = require("path");
+// Used onCreateNode for image creation on gatsby-remar
+const { createFilePath } = require('gatsby-source-filesystem');
+const { fmImagesToRelative } = require('gatsby-remark-relative-images');
 
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
@@ -19,6 +22,16 @@ exports.createPages = ({ actions, graphql }) => {
               title
               cover
             }
+            fields {
+              coverImg {
+                id
+                childImageSharp {
+                  fluid(maxWidth: 590, maxHeight: 265) {
+                    src
+                  }
+                }              
+              }
+            }
           }
         }
       }
@@ -37,3 +50,23 @@ exports.createPages = ({ actions, graphql }) => {
     })
   })
 }
+
+exports.onCreateNode = ({ node, actions }) => {
+  const { createNodeField } = actions;
+
+  const { frontmatter } = node;
+  if (frontmatter) {
+    const { cover } = frontmatter
+    if (cover) {
+      const coverPath = path.relative(
+        path.dirname(node.fileAbsolutePath),
+        path.join(__dirname, '/static/', cover)
+      )
+      createNodeField({
+        node,
+        name: 'coverImg',
+        value: coverPath
+      });
+    }
+  }
+};
