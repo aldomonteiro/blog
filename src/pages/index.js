@@ -1,24 +1,20 @@
 import React from "react"
 import { graphql, Link } from 'gatsby';
-
+import Img from 'gatsby-image'
 import Layout from "../components/layout/layout";
-import PreviewCompatibleImage from '../components/image/previewImage';
 
 export default ({ data }) => {
   const { edges: posts } = data.allMarkdownRemark;
-  console.log(posts);
   return (
     <Layout>
       {posts.map(({ node: post }) =>
         <div>
-          {post.frontmatter.cover ? (
-            <PreviewCompatibleImage
-              imageInfo={{
-                image: post.frontmatter.cover,
-                alt: `cover image for post ${post.title}`,
-              }}
-            />
-          ) : null}
+          <Img
+            alt={post.frontmatter.title}
+            fixed={post.frontmatter.cover.childImageSharp.resize}
+            height={post.frontmatter.cover.childImageSharp.resize.height}
+            width={post.frontmatter.cover.childImageSharp.resize.width}
+          />
           <p><Link to={post.frontmatter.path}>{post.frontmatter.title}</Link></p>
           <p>{post.excerpt}</p>
         </div>
@@ -40,7 +36,15 @@ export const pageQuery = graphql`
             path
             title
             date(formatString: "MMMM DD, YYYY")
-            cover
+            cover {
+              childImageSharp {
+                resize(width:200) {
+                  src
+                  height
+                  width
+                }              
+              }
+            }
           }
         }
       }

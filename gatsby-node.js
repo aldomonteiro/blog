@@ -20,17 +20,6 @@ exports.createPages = ({ actions, graphql }) => {
               date
               path
               title
-              cover
-            }
-            fields {
-              coverImg {
-                id
-                childImageSharp {
-                  fluid(maxWidth: 590, maxHeight: 265) {
-                    src
-                  }
-                }              
-              }
             }
           }
         }
@@ -51,22 +40,6 @@ exports.createPages = ({ actions, graphql }) => {
   })
 }
 
-exports.onCreateNode = ({ node, actions }) => {
-  const { createNodeField } = actions;
-
-  const { frontmatter } = node;
-  if (frontmatter) {
-    const { cover } = frontmatter
-    if (cover) {
-      const coverPath = path.relative(
-        path.dirname(node.fileAbsolutePath),
-        path.join(__dirname, '/static/', cover)
-      )
-      createNodeField({
-        node,
-        name: 'coverImg',
-        value: coverPath
-      });
-    }
-  }
+exports.onCreateNode = ({ node }) => {
+  fmImagesToRelative(node); // convert image paths for gatsby images
 };
