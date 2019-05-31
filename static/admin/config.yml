@@ -5,6 +5,10 @@ backend:
 media_folder: static/assets
 public_folder: assets
 
+slug:
+  encoding: 'unicode'
+  clean_accents: true
+
 collections:
   - name: blog
     label: Blog
@@ -16,3 +20,43 @@ collections:
       - { name: 'cover', label: 'Cover', widget: 'image' }
       - { name: title, label: Title }
       - { name: body, label: Body, widget: markdown }
+
+  - name: 'pages'
+    label: 'Pages'
+    files:
+      - file: 'src/pages/about/index.md'
+        label: 'About'
+        name: 'about'
+        fields:
+          - {
+              label: 'Template Key',
+              name: 'templateKey',
+              widget: 'hidden',
+              default: 'about-page',
+            }
+          - { label: 'Title', name: 'title', widget: 'string' }
+          - { label: 'Body', name: 'body', widget: 'markdown' }
+      - file: 'src/pages/thanks/index.md'
+        label: 'Thanks'
+        name: 'thanks'
+        fields:
+          - {
+              label: 'Template Key',
+              name: 'templateKey',
+              widget: 'hidden',
+              default: 'thanks-page',
+            }
+          - { label: 'Title', name: 'title', widget: 'string' }
+          - { label: 'Body', name: 'body', widget: 'markdown' }
+      - file: 'src/pages/contact/index.md'
+        label: 'Contact'
+        name: 'contact'
+        fields:
+          - {
+              label: 'Template Key',
+              name: 'templateKey',
+              widget: 'hidden',
+              default: 'contact-page',
+            }
+          - { label: 'Title', name: 'title', widget: 'string' }
+          - { label: 'Body', name: 'body', widget: 'markdown' }
