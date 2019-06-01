@@ -1,9 +1,7 @@
 ---
-templateKey: about-page
+templateKey: 'about-page'
+path: /about
 title: About me
-date: 2019-05-30T17:20:36.890Z
 ---
-
-Thanks to reach me. I've been on working on IT Projects for lots of years and have already played almost all roles in such projects, from developer to project manager.
-
-Currently, I have lots of interest on systems for web. If you are interested in knowing more about that, just grab me an e-mail and I will be happy to get in touch! My e-mail is _aldo at aldomonteiro dot com_.
+### Shade-grown coffee
+Coffee is a small tree or shrub that grows in the forest understory in its wild form, and traditionally was grown commercially under other trees that provided shade. The forest-like structure of shade coffee farms provides habitat for a great number of migratory and resident species.

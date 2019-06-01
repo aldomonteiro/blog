@@ -4,13 +4,6 @@
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
 
-const glob = require('glob');
-
-function getCmsFilePath (cmsDirectory) {
-  return glob.sync(`${cmsDirectory}cms.*.js`)[0];
-}
-
-
 module.exports = {
   plugins: [
     {
@@ -50,8 +43,9 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-netlify-cms',
       options: {
-        modulePath: getCmsFilePath(`${__dirname}/src/cms/`),
+        modulePath: `${__dirname}/src/cms/cms.js`,
       },
     },
+    `gatsby-plugin-netlify`,
   ],
 }
