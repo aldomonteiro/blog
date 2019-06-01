@@ -6,8 +6,6 @@ const { fmImagesToRelative } = require('gatsby-remark-relative-images');
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
 
-  const blogPostTemplate = path.resolve(`src/templates/blogTemplate.js`)
-
   return graphql(`
     {
       allMarkdownRemark(
@@ -16,10 +14,15 @@ exports.createPages = ({ actions, graphql }) => {
       ) {
         edges {
           node {
+            id
+            fields {
+              slug
+            }
             frontmatter {
               date
               path
               title
+              templateKey
             }
           }
         }
@@ -31,10 +34,17 @@ exports.createPages = ({ actions, graphql }) => {
     }
 
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+
+      const template = node.frontmatter.templateKey
+        ? path.resolve(`src/templates/${String(node.frontmatter.templateKey)}.js`)
+        : path.resolve(`src/templates/blogTemplate.js`)
+
+      const id = node.id
+
       createPage({
-        path: node.frontmatter.path,
-        component: blogPostTemplate,
-        context: {}, // additional data can be passed via context
+        path: node.frontmatter.path || node.fields.slug,
+        component: template,
+        context: { id }, // additional data can be passed via context
       })
     })
   })
