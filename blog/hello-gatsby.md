@@ -1,4 +1,5 @@
 ---
+templateKey: blog-post
 path: /blog/hello-gatsby
 date: 2019-05-30T17:20:36.890Z
 cover: /assets/gatsby-logo.jpeg

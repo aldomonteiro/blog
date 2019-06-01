@@ -15,7 +15,8 @@ collections:
     folder: blog
     create: true
     fields:
-      - { name: path, label: Path }
+      - { label: 'Template Key', name: 'templateKey', widget: 'hidden', default: 'blog-post'}
+      - { name: path, label: Path, widget: 'hidden' }
       - { name: date, label: Date, widget: date }
       - { name: 'cover', label: 'Cover', widget: 'image' }
       - { name: title, label: Title }

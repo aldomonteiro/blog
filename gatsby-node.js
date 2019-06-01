@@ -35,9 +35,7 @@ exports.createPages = ({ actions, graphql }) => {
 
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
 
-      const template = node.frontmatter.templateKey
-        ? path.resolve(`src/templates/${String(node.frontmatter.templateKey)}.js`)
-        : path.resolve(`src/templates/blogTemplate.js`)
+      const template = path.resolve(`src/templates/${String(node.frontmatter.templateKey)}.js`)
 
       const id = node.id
 

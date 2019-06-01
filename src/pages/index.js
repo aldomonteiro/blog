@@ -9,13 +9,14 @@ export default ({ data }) => {
     <Layout>
       {posts.map(({ node: post }) =>
         <div>
-          <Img
-            alt={post.frontmatter.title}
-            fixed={post.frontmatter.cover.childImageSharp.resize}
-            height={post.frontmatter.cover.childImageSharp.resize.height}
-            width={post.frontmatter.cover.childImageSharp.resize.width}
-          />
-          <p><Link to={post.frontmatter.path}>{post.frontmatter.title}</Link></p>
+          {post.frontmatter.cover && (
+            <Img
+              alt={post.frontmatter.title}
+              fixed={post.frontmatter.cover.childImageSharp.resize}
+              height={post.frontmatter.cover.childImageSharp.resize.height}
+              width={post.frontmatter.cover.childImageSharp.resize.width}
+            />)}
+          < p > <Link to={post.fields.slug}>{post.frontmatter.title}</Link></p>
           <p>{post.excerpt}</p>
         </div>
       )}
@@ -32,6 +33,9 @@ export const pageQuery = graphql`
         node {
           excerpt(pruneLength: 100)
           id
+          fields {
+            slug
+          }
           frontmatter {
             path
             title
