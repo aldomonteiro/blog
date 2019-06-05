@@ -1,5 +1,4 @@
 const path = require("path");
-// Used onCreateNode for image creation on gatsby-remar
 const { createFilePath } = require('gatsby-source-filesystem');
 const { fmImagesToRelative } = require('gatsby-remark-relative-images');
 
@@ -40,7 +39,7 @@ exports.createPages = ({ actions, graphql }) => {
       const id = node.id
 
       createPage({
-        path: node.frontmatter.path || node.fields.slug,
+        path: node.fields.slug,
         component: template,
         context: { id }, // additional data can be passed via context
       })

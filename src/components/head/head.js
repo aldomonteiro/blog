@@ -9,7 +9,7 @@ const Head = () => (
       content="width=device-width,initial-scale=1.0,user-scalable=yes"
       name="viewport"
     />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
   </Helmet>
 );
 

@@ -42,6 +42,13 @@ const TemplateWrapper = ({ children }) => {
         <meta property="og:title" content={title} />
         <meta property="og:url" content="/" />
         <meta property="og:image" content="/img/og-image.jpg" />
+        <html lang="en" />
+        <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
+        <meta
+          content="width=device-width,initial-scale=1.0,user-scalable=yes"
+          name="viewport"
+        />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" />
       </Helmet>
       <Navbar />
       <div>{children}</div>

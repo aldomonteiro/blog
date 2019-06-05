@@ -1,33 +1,51 @@
-import React from "react"
+import React from 'react';
 import { graphql } from "gatsby"
 import Img from 'gatsby-image'
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
-export default function Template ({
-  data, // this prop will be injected by the GraphQL query below.
-}) {
+import Layout from '../components/Layout';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+  },
+  main: {
+    marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(2),
+  },
+}));
+
+export default function BlogPost ({ data }) {
+  const classes = useStyles();
   const { markdownRemark } = data // data.markdownRemark holds our post data
   const { frontmatter, html } = markdownRemark
-
   return (
-    <div className="blog-post-container">
-      <div className="blog-post">
-        {frontmatter.cover &&
-          <Img
-            alt={frontmatter.title}
-            fixed={frontmatter.cover.childImageSharp.resize}
-            height={frontmatter.cover.childImageSharp.resize.height}
-            width={frontmatter.cover.childImageSharp.resize.width}
-          />
-        }
-        <h1>{frontmatter.title}</h1>
-        <h2>{frontmatter.date}</h2>
-        <div
-          className="blog-post-content"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+    <Layout>
+      <div className={classes.root}>
+        {/* <CssBaseline /> */}
+        <Container component="main" className={classes.main} maxWidth="md">
+          <Typography variant="h2" component="h2" align="center">
+            {frontmatter.title}
+          </Typography>
+
+          {frontmatter.cover &&
+            <Img
+              alt={frontmatter.title}
+              sizes={frontmatter.cover.childImageSharp.sizes}
+            />
+          }
+
+          <Typography variant="body1" component="div"
+            dangerouslySetInnerHTML={{ __html: html }} />
+
+        </Container>
       </div>
-    </div>
-  )
+    </Layout>
+  );
 }
 
 export const pageQuery = graphql`
@@ -40,11 +58,9 @@ export const pageQuery = graphql`
         title
         cover {
           childImageSharp {
-            resize(width:400) {
-              src
-              height
-              width
-            }              
+            sizes(maxWidth: 600, maxHeight: 400 ) {
+              ...GatsbyImageSharpSizes_tracedSVG
+            }
           }
         }
       }
