@@ -2,26 +2,30 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
-import Content, { HTMLContent } from '../components/Content'
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
-export const ContactPageTemplate = ({ title, content, contentComponent }) => {
-  const PageContent = contentComponent || Content
+const useStyles = makeStyles(theme => ({
+  main: {
+    marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(2),
+  },
+}));
 
+export const ContactPageTemplate = ({ title, content }) => {
+  const classes = useStyles();
   return (
-    <section className="section section--gradient">
-      <div className="container">
-        <div className="columns">
-          <div className="column is-10 is-offset-1">
-            <div className="section">
-              <h2 className="title is-size-3 has-text-weight-bold is-bold-light">
-                {title}
-              </h2>
-              <PageContent className="content" content={content} />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <Layout>
+        <Container component="main" className={classes.main} maxWidth="md">
+          <Typography variant="h2" component="h2" align="center">
+            {title}
+          </Typography>
+          <Typography variant="body1" component="div"
+            dangerouslySetInnerHTML={{ __html: content }} />
+
+        </Container>
+    </Layout>
   )
 }
 
@@ -35,13 +39,10 @@ const ContactPage = ({ data }) => {
   const { markdownRemark: post } = data
 
   return (
-    <Layout>
       <ContactPageTemplate
-        contentComponent={HTMLContent}
         title={post.frontmatter.title}
         content={post.html}
       />
-    </Layout>
   )
 }
 

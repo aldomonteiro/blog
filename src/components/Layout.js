@@ -1,10 +1,21 @@
 import React from 'react'
 import Helmet from 'react-helmet'
+import { makeStyles } from '@material-ui/core/styles';
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import useSiteMetadata from './SiteMetadata'
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '80vh',
+  }
+}));
+
+
 const TemplateWrapper = ({ children }) => {
+  const classes = useStyles();
   const { title, description } = useSiteMetadata()
   return (
     <div>
@@ -51,7 +62,9 @@ const TemplateWrapper = ({ children }) => {
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" />
       </Helmet>
       <Navbar />
-      <div>{children}</div>
+      <div className={classes.root}>
+        {children}
+      </div>
       <Footer />
     </div>
   )

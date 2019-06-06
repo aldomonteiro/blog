@@ -8,11 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import Layout from '../components/Layout';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh',
-  },
   main: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(2),
@@ -25,7 +20,6 @@ export default function BlogPost ({ data }) {
   const { frontmatter, html } = markdownRemark
   return (
     <Layout>
-      <div className={classes.root}>
         {/* <CssBaseline /> */}
         <Container component="main" className={classes.main} maxWidth="md">
           <Typography variant="h2" component="h2" align="center">
@@ -35,7 +29,7 @@ export default function BlogPost ({ data }) {
           {frontmatter.cover &&
             <Img
               alt={frontmatter.title}
-              sizes={frontmatter.cover.childImageSharp.sizes}
+              fluid={frontmatter.cover.childImageSharp.fluid}
             />
           }
 
@@ -43,12 +37,31 @@ export default function BlogPost ({ data }) {
             dangerouslySetInnerHTML={{ __html: html }} />
 
         </Container>
-      </div>
     </Layout>
   );
 }
 
 export const pageQuery = graphql`
+  query($id: String!) {
+    markdownRemark(id: { eq: $id }) {
+      html
+      frontmatter {
+        date(formatString: "MMMM DD, YYYY")
+        path
+        title
+        cover {
+          childImageSharp {
+            fluid(maxWidth: 600) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+/*export const pageQuery = graphql`
   query($id: String!) {
     markdownRemark(id: { eq: $id }) {
       html
@@ -66,4 +79,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`*/

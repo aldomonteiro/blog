@@ -8,7 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Img from 'gatsby-image'
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 
 const useStyles = makeStyles({
   card: {
@@ -27,7 +27,7 @@ function PostCard ({ image, title, excerpt, slug }) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} onClick={() => navigate(slug)} >
       <CardActionArea>
         {/* <Img
             alt={title}
@@ -49,7 +49,7 @@ function PostCard ({ image, title, excerpt, slug }) {
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary" component={Link} to={slug}>
-            Learn More
+          Continue Reading...
         </Button>
       </CardActions>
     </Card>
